@@ -1,9 +1,9 @@
 class CreateAuthors < ActiveRecord::Migration[6.0]
   def change
     create_table :authors do |t|
-      t.string :name
-      t.boolean :is_representative
-      t.integer :book_id
+      t.references :book, foreign_key: true
+      t.string :name, null: false
+      t.boolean :is_representative, null: false
 
       t.timestamps
     end
