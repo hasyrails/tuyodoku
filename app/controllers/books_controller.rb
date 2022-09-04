@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   def search
     @search_form = SearchBooksForm.new(search_books_params)
     books = GoogleBook.search(@search_form.keyword)
-    @books = Kaminari.paginate_array(books).page(params[:page])
+    @books = Kaminari.paginate_array(books).page(params[:page]).per(10)
   end
 
   def create
@@ -17,7 +17,8 @@ class BooksController < ApplicationController
   private
 
   def search_books_params
-    params.fetch(:search_books_form).permit(:keyword)
+    # params.fetch(:search_books_form).permit(:keyword)
+    params.fetch(:q, keyword: '').permit(:keyword)
   end
 
   def create_book_params
