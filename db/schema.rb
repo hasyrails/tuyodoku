@@ -13,11 +13,12 @@
 ActiveRecord::Schema.define(version: 2022_09_04_062051) do
 
   create_table "authors", force: :cascade do |t|
-    t.string "name"
-    t.boolean "is_representative"
     t.integer "book_id"
+    t.string "name", null: false
+    t.boolean "is_representative", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_authors_on_book_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -30,4 +31,5 @@ ActiveRecord::Schema.define(version: 2022_09_04_062051) do
     t.index "\"googlebooksapi_id\"", name: "index_books_on_googlebooksapi_id", unique: true
   end
 
+  add_foreign_key "authors", "books"
 end

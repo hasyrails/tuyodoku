@@ -4,11 +4,17 @@
     = f.text_field :keyword, class: 'form-control', value: @search_form.keyword
   = f.submit '検索する'
 
-.container
-  .flex-item
-    - if @books
-      = @books.each do |book|
-        - if book.image
-          = image_tag book.image
-        = book.title
-        = book.authors
+.flex-items
+  - if @books
+    - @books.each do |book|
+      .book-info
+        .book-image
+          - if book.image
+            = image_tag book.image
+        .book-title
+          = book.title
+        .book-author
+          - if book.authors
+            = book.authors.first
+
+  = paginate @books
